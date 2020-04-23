@@ -1,19 +1,16 @@
 Goblin:
   maximum_health: 13
-  attacks:
-    - Slash
+  attacks: [Slash]
   defense:
     base_defense_roll: 0+1d4
     ice_defense_roll: 0+0d4
     fire_defense_roll: 0+0d4
     electric_defense_roll: 0+0d4
     poison_defense_roll: 0+0d4
-    
+
 Troll:
   maximum_health: 40
-  attacks:
-    - Stab
-    - Impale
+  attacks: [Stab, Impale]
   defense:
     base_defense_roll: 2+1d6
     ice_defense_roll: 0+0d4

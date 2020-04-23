@@ -1,8 +1,6 @@
 maximum_health: 50
 health: 50
-attacks:
-  - Slash
-  - Stab
+attacks: [Slash, Stab]
 defense:
   base_defense_roll: 2+1d6
   ice_defense_roll: 0+0d4
