@@ -1,0 +1,12 @@
+encounter:
+  - You meet a cunning {enemy_name}!
+  - A {enemy_name} is upon you!
+player_turn:
+  - It's your turn!
+  - Get that {enemy_name}!
+enemy_turn:
+  - It's the {enemy_name}'s turn!
+victory:
+  - You have defeated the {enemy_name}!
+defeat:
+  - You have succumbed to the {enemy_name}.
