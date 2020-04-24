@@ -28,6 +28,7 @@ NON_PLAYER_LEVEL_MAPPING = {
     10: 90,
 }
 
+
 class Character:
     def __init__(self, name: str, data: Dict[str, Any]) -> None:
         self.name = name
@@ -74,7 +75,8 @@ class Character:
         for level, experience in mapping.items():
             if self.experience < experience:
                 return level - 1
-        return mapping.keys()[-1]
+        return list(mapping.keys())[-1]
+
 
 class PlayerCharacter(Character):
     def level(self) -> int:
