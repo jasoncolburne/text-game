@@ -1,76 +1,73 @@
 from random import randint
 import re
+from typing import List
 import yaml
 
+from .characters import Character
+from .constants import DEFAULT_ATTACKS_PATH
 from .text_engine import TextEngine
 
-DEBUG = False
 DICE_RE = re.compile(r'^(\d+)\+(\d+)d(\d+)$')
 ALLOWED_SIDES = [4, 6, 8, 10, 12, 20]
 
 class CombatEngine:
-    def __init__(self, player, enemy, text_engine = None):
-        self.player = player
-        self.enemy = enemy
+    def __init__(self, attacks_path: str = DEFAULT_ATTACKS_PATH, text_engine: TextEngine = None) -> None:
         self.text_engine = text_engine or TextEngine()
+        with open(attacks_path, 'r') as f:
+            self.attacks = yaml.load(f, Loader=yaml.FullLoader)        
 
-    def fight(self):
-        player = self.player
-        enemy = self.enemy
-        print(f"You have encountered a {enemy.name}!")
+    def fight(self, player: Character, enemy: Character) -> bool:
         player.print_stats()
         enemy.print_stats()
+        print(f"You have encountered a {enemy.name}!")
         while True:
-            self.player_turn()
+            self.player_turn(player, enemy)
             if enemy.health <= 0:
                 print(f"Congratulations! You have defeated the {enemy.name}!")
-                break
-            self.enemy_turn()
+                return True
+            self.enemy_turn(player, enemy)
             if player.health <= 0:
                 print("You have been slain")
-                exit()
+                return False
 
-    def player_turn(self):
-        player = self.player
-        enemy = self.enemy
-
+    def player_turn(self, player: Character, enemy: Character) -> None:
         print("Your turn to attack!")
-        attack = self.text_engine.menu(player.attacks, "Your choice?", True)
-        damage = self.sum_dice(attack)
-        print(f"You have damaged the {enemy.name} by {damage} health!")
-        enemy.damage(damage)
-        enemy.print_stats()
+        attack = self.text_engine.menu(player.attacks, "Your choice?")
+        self._execute_combat(attack, player, enemy)
 
-    def enemy_turn(self):
-        player = self.player
-        enemy = self.enemy
-
+    def enemy_turn(self, player: Character, enemy: Character) -> None:
         print(f"It's the {enemy.name}'s turn!")
         number_of_attacks = len(enemy.attacks)
         attack_index = randint(0, number_of_attacks - 1)
-        attack_name = list(enemy.attacks.keys())[attack_index]
-        attack_value = enemy.attacks[attack_name]
-        damage = self.sum_dice(attack_value)
-        print(f"The {enemy.name} has used {attack_name}! You lose {damage} health!")
-        player.damage(damage)
-        player.print_stats()
+        attack = enemy.attacks[attack_index]
+        self._execute_combat(attack, enemy, player)
 
-    def roll(self, number, sides):
+    def _execute_combat(self, attack_name: str, attacker: Character, defender: Character) -> None:
+        attack = self.attacks[attack_name]
+        attack_roll = self._sum_dice(attack['attack_roll'])
+        defense_roll = self._sum_dice(defender.defense)
+        if attack_roll > defense_roll:
+            damage = self._sum_dice(attack['damage_roll'])
+            defender.damage(damage)
+            print(f"{attacker.name} damages {defender.name} by {damage} health!")
+            defender.print_stats()
+        else:
+            print(f"{attacker.name} misses!")
+
+    def _sum_dice(self, desired: str) -> int:
+        match = DICE_RE.match(desired)
+        base_damage = int(match.group(1))
+        number_of_dice = int(match.group(2))
+        number_of_sides = int(match.group(3))
+        return base_damage + sum(self._roll(number_of_dice, number_of_sides), 0)
+
+    def _roll(self, number: int, sides: int) -> List[int]:
         result = []
         if sides not in ALLOWED_SIDES:
             raise AttributeError('Disallowed number of sides')
         for _ in range(number):
             result.append(randint(1, sides))
-        if DEBUG:
-            print('Rolled ' + str(result))
         return result
-
-    def sum_dice(self, desired):
-        match = DICE_RE.match(desired)
-        base_damage = int(match.group(1))
-        number_of_dice = int(match.group(2))
-        number_of_sides = int(match.group(3))
-        return base_damage + sum(self.roll(number_of_dice, number_of_sides), 0)
 
 
 # world = World()

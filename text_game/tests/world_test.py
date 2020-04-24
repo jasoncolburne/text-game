@@ -1,7 +1,7 @@
 from text_game.world import World
 
 def _setup_world():
-    return World('tests/fixtures/characters', 'tests/fixtures/non_player_characters.yml')
+    return World('text_game/tests/fixtures/characters', 'text_game/tests/fixtures/non_player_characters.yml')
 
 def test_init_loads_npc_data():
     world = _setup_world()
