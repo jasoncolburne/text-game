@@ -2,13 +2,13 @@ class TextEngine:
     def prompt(self, question):
         return input(question + ' ')
 
-    def menu(self, choices, question, display_values = False):
+    def menu(self, choices, question, display_values=False):
         index = 0
         if isinstance(choices, list):
             values = choices
             for label in choices:
                 print(f"{index + 1}. {label}")
-                index +=1
+                index += 1
         elif isinstance(choices, dict):
             values = []
             for label, value in choices.items():

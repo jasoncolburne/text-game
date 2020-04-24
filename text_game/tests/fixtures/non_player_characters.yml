@@ -1,11 +1,11 @@
-Goblin:
-  maximum_health: 13
+Gimp:
+  maximum_health: 1
   maximum_mana: 0
-  attacks: [Slash]
-  defense: 0+1d4
+  attacks: [Empty]
+  defense: 0+0d4
 
 Troll:
   maximum_health: 40
   maximum_mana: 0
-  attacks: [Stab, Impale]
-  defense: 2+1d6
+  attacks: [Attack, Mana]
+  defense: 2+0d4

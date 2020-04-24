@@ -10,11 +10,12 @@ from .text_engine import TextEngine
 DICE_RE = re.compile(r'^(\d+)\+(\d+)d(\d+)$')
 ALLOWED_SIDES = [4, 6, 8, 10, 12, 20]
 
+
 class CombatEngine:
     def __init__(self, attacks_path: str = DEFAULT_ATTACKS_PATH, text_engine: TextEngine = None) -> None:
         self.text_engine = text_engine or TextEngine()
         with open(attacks_path, 'r') as f:
-            self.attacks = yaml.load(f, Loader=yaml.FullLoader)        
+            self.attacks = yaml.load(f, Loader=yaml.FullLoader)
 
     def fight(self, player: Character, enemy: Character) -> bool:
         player.print_stats()
@@ -45,7 +46,9 @@ class CombatEngine:
         self._execute_combat(attack, enemy, player)
 
     def _get_valid_attacks(self, character: Character) -> List[str]:
-        predicate = lambda attack_name: self.attacks[attack_name]['mana_required'] <= character.mana
+        def predicate(attack_name):
+            return self.attacks[attack_name]['mana_required'] <= character.mana
+
         return list(filter(predicate, character.attacks))
 
     def _execute_combat(self, attack_name: str, attacker: Character, defender: Character) -> None:

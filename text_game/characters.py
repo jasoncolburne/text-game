@@ -1,6 +1,7 @@
 from typing import Dict, Any
 import yaml
 
+
 class Character:
     def __init__(self, name, data):
         self.name = name
@@ -29,14 +30,15 @@ class Character:
         }
 
     def as_yaml(self):
-        return yaml.dump({ self.name: self.as_dict() })
+        return yaml.dump({self.name: self.as_dict()})
 
     def print_stats(self):
         print(f"{self.name}: Health {self.health}/{self.maximum_health} Mana {self.mana}/{self.maximum_mana}")
-        pass
+
 
 class NonPlayerCharacter(Character):
     pass
+
 
 class PlayerCharacter(Character):
     pass

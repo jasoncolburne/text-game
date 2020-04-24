@@ -1,14 +1,15 @@
-from os import walk, path
+from os import walk
 import yaml
 
 from .characters import PlayerCharacter, NonPlayerCharacter
 from .constants import DEFAULT_CHARACTERS_PATH, DEFAULT_NON_PLAYER_CHARACTER_PATH
 
+
 class World:
     def __init__(
         self,
-        characters_path = DEFAULT_CHARACTERS_PATH,
-        non_player_character_path = DEFAULT_NON_PLAYER_CHARACTER_PATH,
+        characters_path=DEFAULT_CHARACTERS_PATH,
+        non_player_character_path=DEFAULT_NON_PLAYER_CHARACTER_PATH,
     ):
         self.characters_path = characters_path
         with open(non_player_character_path, 'r') as f:
