@@ -4,3 +4,4 @@ maximum_mana: 15
 mana: 15
 attacks: [Slash, Stab, Burn]
 defense: 2+2d4
+experience: 0

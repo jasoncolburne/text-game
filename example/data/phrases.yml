@@ -6,7 +6,13 @@ player_turn:
   - Get that {enemy_name}!
 enemy_turn:
   - It's the {enemy_name}'s turn!
+strike:
+  - '{attacker_name} uses {attack_name} to injure {defender_name} by {damage}!'
+miss:
+  - '{attacker_name} misses!'
+  - Nice try, {attacker_name}!
 victory:
   - You have defeated the {enemy_name}!
 defeat:
   - You have succumbed to the {enemy_name}.
+
