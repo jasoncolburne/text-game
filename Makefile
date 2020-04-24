@@ -8,3 +8,4 @@ lint:
 typecheck:
 	mypy .
 
+all: test lint typecheck
