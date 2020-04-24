@@ -32,8 +32,12 @@ class Character:
     def as_yaml(self) -> str:
         return yaml.dump({self.name: self.as_dict()})
 
-    def print_stats(self) -> None:
-        print(f"{self.name}: Health {self.health}/{self.maximum_health} Mana {self.mana}/{self.maximum_mana}")
+    def get_stats(self) -> str:
+        text = f"{self.name}: Health {self.health}/{self.maximum_health}"
+        if self.maximum_mana:
+            text += f" Mana {self.mana}/{self.maximum_mana}"
+            
+        return text
 
 
 class NonPlayerCharacter(Character):

@@ -1,9 +1,12 @@
-from typing import List, Dict, Union, Any
+from typing import List, Dict, Union, Any, Optional
 
 
 class TextEngine:
     def prompt(self, question: str) -> str:
         return input(question + ' ')
+
+    def print(self, text: str = None) -> None:
+        print(text or '')
 
     def menu(self, choices: Union[List, Dict], question: str, display_values: bool = False) -> Any:
         index = 0

@@ -13,5 +13,5 @@ world.enter('New')
 world.character.name = 'Jason'
 
 goblin = world.spawn('Goblin')
-ce = CombatEngine('example/data/attacks.yml')
+ce = CombatEngine('example/data/attacks.yml', 'example/data/phrases.yml')
 ce.fight(world.character, goblin)
