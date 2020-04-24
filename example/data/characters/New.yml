@@ -1,0 +1,6 @@
+maximum_health: 50
+health: 50
+maximum_mana: 15
+mana: 15
+attacks: [Slash, Stab, Burn]
+defense: 2+2d4

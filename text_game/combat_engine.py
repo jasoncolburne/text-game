@@ -32,30 +32,37 @@ class CombatEngine:
 
     def player_turn(self, player: Character, enemy: Character) -> None:
         print("Your turn to attack!")
-        attack = self.text_engine.menu(player.attacks, "Your choice?")
+        valid_attacks = self._get_valid_attacks(player)
+        attack = self.text_engine.menu(valid_attacks, "Your choice?")
         self._execute_combat(attack, player, enemy)
 
     def enemy_turn(self, player: Character, enemy: Character) -> None:
         print(f"It's the {enemy.name}'s turn!")
-        number_of_attacks = len(enemy.attacks)
+        valid_attacks = self._get_valid_attacks(enemy)
+        number_of_attacks = len(valid_attacks)
         attack_index = randint(0, number_of_attacks - 1)
-        attack = enemy.attacks[attack_index]
+        attack = valid_attacks[attack_index]
         self._execute_combat(attack, enemy, player)
+
+    def _get_valid_attacks(self, character: Character) -> List[str]:
+        predicate = lambda attack_name: self.attacks[attack_name]['mana_required'] <= character.mana
+        return list(filter(predicate, character.attacks))
 
     def _execute_combat(self, attack_name: str, attacker: Character, defender: Character) -> None:
         attack = self.attacks[attack_name]
+        attacker.consume_mana(attack['mana_required'])
         attack_roll = self._sum_dice(attack['attack_roll'])
         defense_roll = self._sum_dice(defender.defense)
         if attack_roll > defense_roll:
             damage = self._sum_dice(attack['damage_roll'])
             defender.damage(damage)
-            print(f"{attacker.name} damages {defender.name} by {damage} health!")
+            print(f"{attacker.name} uses {attack_name} to injure {defender.name} by {damage}!")
             defender.print_stats()
         else:
             print(f"{attacker.name} misses!")
 
-    def _sum_dice(self, desired: str) -> int:
-        match = DICE_RE.match(desired)
+    def _sum_dice(self, expression: str) -> int:
+        match = DICE_RE.match(expression)
         base_damage = int(match.group(1))
         number_of_dice = int(match.group(2))
         number_of_sides = int(match.group(3))

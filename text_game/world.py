@@ -2,9 +2,7 @@ from os import walk, path
 import yaml
 
 from .characters import PlayerCharacter, NonPlayerCharacter
-
-DEFAULT_CHARACTERS_PATH = './data/characters'
-DEFAULT_NON_PLAYER_CHARACTER_PATH = './data/non_player_characters.yml'
+from .constants import DEFAULT_CHARACTERS_PATH, DEFAULT_NON_PLAYER_CHARACTER_PATH
 
 class World:
     def __init__(
