@@ -1,0 +1,16 @@
+Slash:
+  mana_required: 0
+  attack_roll: 0+2d4
+  damage_roll: 0+1d4
+Stab:
+  mana_required: 0
+  attack_roll: 0+1d8
+  damage_roll: 2+1d6
+Impale:
+  mana_required: 0
+  attack_roll: 0+1d6
+  damage_roll: 6+2d4
+Burn:
+  mana_required: 4
+  attack_roll: 6+2d4
+  damage_roll: 2+2d4

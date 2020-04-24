@@ -1,0 +1,11 @@
+Gimp:
+  maximum_health: 1
+  maximum_mana: 0
+  attacks: [Empty]
+  defense: 0+0d4
+
+Troll:
+  maximum_health: 40
+  maximum_mana: 0
+  attacks: [Attack, Mana]
+  defense: 2+0d4
