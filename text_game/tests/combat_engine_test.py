@@ -28,6 +28,7 @@ def test_get_valid_attacks():
     world = _setup_world()
     combat_engine = _setup_combat_engine()
 
-    result = combat_engine._get_valid_attacks(world.spawn('Troll'))
-
-    assert result == ['Attack']
+    troll = world.spawn('Troll')
+    assert combat_engine._get_valid_attacks(troll) == ['Attack']
+    troll.mana = 20
+    assert combat_engine._get_valid_attacks(troll) == ['Attack', 'Mana']

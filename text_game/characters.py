@@ -3,7 +3,7 @@ import yaml
 
 
 class Character:
-    def __init__(self, name, data):
+    def __init__(self, name: str, data: Dict[str, Any]) -> None:
         self.name = name
         self.attacks = data['attacks']
         self.defense = data['defense']
@@ -29,10 +29,10 @@ class Character:
             'maximum_health': self.maximum_health,
         }
 
-    def as_yaml(self):
+    def as_yaml(self) -> str:
         return yaml.dump({self.name: self.as_dict()})
 
-    def print_stats(self):
+    def print_stats(self) -> None:
         print(f"{self.name}: Health {self.health}/{self.maximum_health} Mana {self.mana}/{self.maximum_mana}")
 
 
