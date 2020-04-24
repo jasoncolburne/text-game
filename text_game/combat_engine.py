@@ -1,4 +1,4 @@
-from random import randint, shuffle
+from random import randint
 import re
 from typing import List
 import yaml
@@ -26,18 +26,20 @@ class CombatEngine:
             self.phrases = yaml.load(f, Loader=yaml.FullLoader)
 
     def _random_phrase(self, label: str) -> str:
-        shuffle(self.phrases[label])
-        return self.phrases[label][0]
+        index = randint(0, len(self.phrases[label]) - 1)
+        return self.phrases[label][index]
 
     def fight(self, player: Character, enemy: Character) -> bool:
         self.text_engine.print(self._random_phrase('encounter').format(enemy_name=enemy.name))
-        self.text_engine.print(player.get_stats())
-        self.text_engine.print(enemy.get_stats())
+        old_level = player.level()
 
         while True:
             self.player_turn(player, enemy)
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
+                player.experience += enemy.experience
+                if player.level() != old_level:
+                    self.text_engine.print('You have gained a level!')
                 return True
             self.enemy_turn(player, enemy)
             if player.health <= 0:
@@ -47,9 +49,11 @@ class CombatEngine:
     def player_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('player_turn').format(enemy_name=enemy.name))
+        self.text_engine.print(player.identify())
+        self.text_engine.print()
 
         valid_attacks = self._get_valid_attacks(player)
-        attack = self.text_engine.menu(valid_attacks, "Your choice?")
+        attack = self.text_engine.menu(valid_attacks, ">")
 
         self._execute_combat(attack, player, enemy)
 
@@ -80,10 +84,14 @@ class CombatEngine:
         if attack_roll > defense_roll:
             damage = self._sum_dice(attack['damage_roll'])
             defender.damage(damage)
-            print(f"{attacker.name} uses {attack_name} to injure {defender.name} by {damage}!")
-            self.text_engine.print(defender.get_stats())
+            self.text_engine.print(self._random_phrase('strike').format(
+                attacker_name=attacker.name,
+                attack_name=attack_name,
+                defender_name=defender.name,
+                damage=damage,
+            ))
         else:
-            print(f"{attacker.name} misses!")
+            self.text_engine.print(self._random_phrase('miss').format(attacker_name=attacker.name))
 
     def _sum_dice(self, expression: str) -> int:
         match = DICE_RE.match(expression)

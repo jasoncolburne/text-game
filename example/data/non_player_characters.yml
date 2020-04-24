@@ -3,9 +3,11 @@ Goblin:
   maximum_mana: 0
   attacks: [Slash, Stab]
   defense: 0+1d4
+  experience: 2
 
 Troll:
   maximum_health: 40
   maximum_mana: 0
   attacks: [Stab, Impale]
   defense: 2+1d6
+  experience: 15
