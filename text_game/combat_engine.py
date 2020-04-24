@@ -66,9 +66,9 @@ class CombatEngine:
 
     def _sum_dice(self, expression: str) -> int:
         match = DICE_RE.match(expression)
-        base_damage = int(match.group(1))
-        number_of_dice = int(match.group(2))
-        number_of_sides = int(match.group(3))
+        base_damage = int(match.group(1))  # type: ignore
+        number_of_dice = int(match.group(2))  # type: ignore
+        number_of_sides = int(match.group(3))  # type: ignore
         return base_damage + sum(self._roll(number_of_dice, number_of_sides), 0)
 
     def _roll(self, number: int, sides: int) -> List[int]:

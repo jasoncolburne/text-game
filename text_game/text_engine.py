@@ -1,8 +1,11 @@
+from typing import List, Dict, Union, Any
+
+
 class TextEngine:
-    def prompt(self, question):
+    def prompt(self, question: str) -> str:
         return input(question + ' ')
 
-    def menu(self, choices, question, display_values=False):
+    def menu(self, choices: Union[List, Dict], question: str, display_values: bool = False) -> Any:
         index = 0
         if isinstance(choices, list):
             values = choices
