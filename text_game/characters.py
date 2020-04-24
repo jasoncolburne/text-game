@@ -36,7 +36,7 @@ class Character:
         text = f"{self.name}: Health {self.health}/{self.maximum_health}"
         if self.maximum_mana:
             text += f" Mana {self.mana}/{self.maximum_mana}"
-            
+
         return text
 
 

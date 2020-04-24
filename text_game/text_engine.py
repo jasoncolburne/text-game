@@ -1,4 +1,4 @@
-from typing import List, Dict, Union, Any, Optional
+from typing import Any, Dict, List, Union
 
 
 class TextEngine:
