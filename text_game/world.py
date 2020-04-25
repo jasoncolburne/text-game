@@ -3,17 +3,16 @@ from typing import List
 import yaml
 
 from .characters import PlayerCharacter, NonPlayerCharacter
-from .constants import DEFAULT_CHARACTERS_PATH, DEFAULT_NON_PLAYER_CHARACTER_PATH
+from .constants import DEFAULT_DATA_PATH
 
 
 class World:
     def __init__(
         self,
-        characters_path: str = DEFAULT_CHARACTERS_PATH,
-        non_player_character_path: str = DEFAULT_NON_PLAYER_CHARACTER_PATH,
+        data_path: str = DEFAULT_DATA_PATH,
     ) -> None:
-        self.characters_path = characters_path
-        with open(non_player_character_path, 'r') as f:
+        self.characters_path = data_path + '/characters'
+        with open(data_path + '/non_player_characters.yml', 'r') as f:
             self.npc_data = yaml.load(f, Loader=yaml.FullLoader)
 
     def character_names(self) -> List[str]:

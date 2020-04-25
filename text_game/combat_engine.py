@@ -4,7 +4,7 @@ from typing import List
 import yaml
 
 from .characters import Character, PlayerCharacter
-from .constants import DEFAULT_ATTACKS_PATH, DEFAULT_PHRASES_PATH
+from .constants import DEFAULT_DATA_PATH
 from .text_engine import TextEngine
 
 DICE_RE = re.compile(r'^(\d+)\+(\d+)d(\d+)$')
@@ -15,15 +15,16 @@ class CombatEngine:
     def __init__(
         self,
         text_engine: TextEngine = None,
-        attacks_path: str = DEFAULT_ATTACKS_PATH,
-        phrases_path: str = DEFAULT_PHRASES_PATH,
+        data_path: str = DEFAULT_DATA_PATH,
     ) -> None:
         self.text_engine = text_engine or TextEngine()
 
-        with open(attacks_path, 'r') as f:
+        with open(data_path + '/attacks.yml', 'r') as f:
             self.attacks = yaml.load(f, Loader=yaml.FullLoader)
-        with open(phrases_path, 'r') as f:
+        with open(data_path + '/phrases.yml', 'r') as f:
             self.phrases = yaml.load(f, Loader=yaml.FullLoader)
+        with open(data_path + '/character_levels.yml', 'r') as f:
+            self.character_levels = yaml.load(f, Loader=yaml.FullLoader)
 
     def _random_phrase(self, label: str) -> str:
         index = randint(0, len(self.phrases[label]) - 1)
@@ -42,6 +43,8 @@ class CombatEngine:
                 player.experience += enemy.experience
                 self.text_engine.set_player_status(player)
                 if player.level() != old_level:
+                    player.apply_new_level(self.character_levels[player.level()])
+                    self.text_engine.set_player_status(player)
                     self.text_engine.print('You have gained a level!')
                 return True
             self._enemy_turn(player, enemy)

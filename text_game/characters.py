@@ -91,6 +91,14 @@ class PlayerCharacter(Character):
 
         return health_and_mana_text + padding + level_text
 
+    def apply_new_level(self, data: Dict[str, Any]) -> None:
+        self.health = data['maximum_health']
+        self.maximum_health = data['maximum_health']
+        self.mana = data['maximum_mana']
+        self.maximum_mana = data['maximum_mana']
+        self.defense = data['defense']
+        self.attacks += data['new_attacks']
+
 
 class NonPlayerCharacter(Character):
     def level(self) -> int:

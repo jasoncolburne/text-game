@@ -13,6 +13,7 @@ class TextEngine:
         printing_delay_minimum: float = DEFAULT_PRINTING_DELAY_MINIMUM,
         printing_delay_maximum: float = DEFAULT_PRINTING_DELAY_MAXIMUM,
     ) -> None:
+        # pylint: disable=no-member
         self.printing_delay_minimum = printing_delay_minimum
         self.printing_delay_maximum = printing_delay_maximum
 
@@ -32,9 +33,11 @@ class TextEngine:
         self.prompt_bar.getkey()
 
     def get_status_width(self) -> int:
+        # pylint: disable=no-member
         return curses.COLS
 
     def set_player_status(self, player: PlayerCharacter):
+        # pylint: disable=no-member
         self._set_status_bar(player.status_bar_text(curses.COLS))
 
     def _set_status_bar(self, text: str) -> None:

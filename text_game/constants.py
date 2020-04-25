@@ -1,7 +1,4 @@
-DEFAULT_ATTACKS_PATH = './data/attacks.yml'
-DEFAULT_CHARACTERS_PATH = './data/characters'
-DEFAULT_NON_PLAYER_CHARACTER_PATH = './data/non_player_characters.yml'
-DEFAULT_PHRASES_PATH = './data/phrases.yml'
+DEFAULT_DATA_PATH = './data'
 
 DEFAULT_PRINTING_DELAY_MINIMUM = 0.01
 DEFAULT_PRINTING_DELAY_MAXIMUM = 0.08
