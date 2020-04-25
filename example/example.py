@@ -25,7 +25,12 @@ def main(stdscr):
 
     if name == 'New':
         te.print('Ahhh, a new recruit. What is your name?')
-        world.character.name = te.prompt('>')
+        while True:
+            name = te.prompt('>')
+            if name not in world.character_names():
+                break
+            te.print('Sorry, that name is taken!')
+        world.character.name = name
 
     player = world.character
 
