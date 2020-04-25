@@ -49,16 +49,11 @@ class Character:
     def consume_mana(self, mana: int) -> None:
         self.mana = max(0, self.mana - mana)
 
-    def as_dict(self) -> Dict[str, Any]:
-        return {
-            'attacks': self.attacks,
-            'defense': self.defense,
-            'health': self.health,
-            'maximum_health': self.maximum_health,
-        }
-
-    def as_yaml(self) -> str:
-        return yaml.dump({self.name: self.as_dict()})
+    def as_yaml(self, exclude_name: bool = True) -> str:
+        data = self.__dict__
+        if exclude_name:
+            del data['name']
+        return yaml.dump(data)
 
     def identify(self) -> str:
         text = f'{self.name}: Health {self.health}/{self.maximum_health}'

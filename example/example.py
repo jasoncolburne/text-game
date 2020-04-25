@@ -17,13 +17,22 @@ def main(stdscr):
     world = World('example/data/characters', 'example/data/non_player_characters.yml')
     ce = CombatEngine(te, 'example/data/attacks.yml', 'example/data/phrases.yml')
 
-    world.enter('New')
-    world.character.name = 'Jason'
+    te.print('Welcome to the Arena!')
+    te.print('Load your character:')
+    name = te.menu(world.character_names(), '>')
+
+    world.enter(name)
+
+    if name == 'New':
+        te.print('Ahhh, a new recruit. What is your name?')
+        world.character.name = te.prompt('>')
+
     player = world.character
 
-    enemy = world.spawn('Troll')
-    ce.fight(player, enemy)
+    # enemy = world.spawn('Troll')
+    # ce.fight(player, enemy)
     enemy = world.spawn('Goblin')
     ce.fight(player, enemy)
+    world.leave()
 
 wrapper(main)
