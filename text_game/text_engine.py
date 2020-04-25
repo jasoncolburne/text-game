@@ -19,7 +19,7 @@ class TextEngine:
         curses.curs_set(False)
 
         self.status_bar = curses.newwin(2, curses.COLS, 0, 0)
-        self.main_window = curses.newwin(curses.LINES - 3, curses.COLS, 2, 0)
+        self.main_window = curses.newwin(curses.LINES - 4, curses.COLS, 2, 0)
         self.prompt_bar = curses.newwin(1, curses.COLS, curses.LINES - 1, 0)
 
         self.main_window.scrollok(True)
@@ -27,12 +27,15 @@ class TextEngine:
         self.main_window.addstr('\n' * (curses.LINES - 2))
         self.main_window.refresh()
 
+    def anykey(self) -> None:
+        self.prompt_bar.getkey()
+
     def get_status_width(self) -> int:
         return curses.COLS
 
     def set_status_bar(self, text: str) -> None:
         self.status_bar.clear()
-        self.status_bar.addnstr(text, curses.COLS, curses.A_REVERSE)
+        self.status_bar.addstr(text, curses.A_REVERSE)
         self.status_bar.refresh()
 
     def prompt(self, question: str) -> str:
@@ -61,9 +64,13 @@ class TextEngine:
                 count += 1
                 answer += key
 
+        self.prompt_bar.clear()
+        self.prompt_bar.refresh()
         return answer
 
     def print(self, text: str = None) -> None:
+        self.main_window.addch('\n')
+
         if text:
             for character in text:
                 self.main_window.addch(character)
@@ -71,7 +78,6 @@ class TextEngine:
                 delay = random() * (self.printing_delay_maximum - self.printing_delay_minimum) + self.printing_delay_minimum
                 sleep(delay)
 
-        self.main_window.addch('\n')
         self.main_window.refresh()
 
     def menu(self, choices: Union[List, Dict], question: str, display_values: bool = False) -> Any:
