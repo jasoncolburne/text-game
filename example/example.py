@@ -7,9 +7,9 @@ from curses import wrapper
 path = os.path.abspath(".")
 sys.path.append(path)
 
-from text_game.combat_engine import CombatEngine
-from text_game.world import World
-from text_game.text_engine import TextEngine
+from text_game.combat_engine import CombatEngine  # noqa: E402
+from text_game.world import World  # noqa: E402
+from text_game.text_engine import TextEngine  # noqa: E402
 
 
 def main(stdscr):
@@ -40,11 +40,11 @@ def main(stdscr):
     while True:
         te.print()
         te.print('What would you like to do?')
-        
+
         action = te.menu(['Fight', 'Sleep', 'Leave'], '>')
 
         te.print()
-        
+
         if action == 'Fight':
             te.print('What would you like to fight?')
             enemy_name = te.menu(list(world.npc_data.keys()), '>')
@@ -56,7 +56,7 @@ def main(stdscr):
                 te.print('[Press any key to continue]')
                 te.anykey()
                 break
-        
+
         if action == 'Sleep':
             te.print('You feel much better after sleeping.')
 
