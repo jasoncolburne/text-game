@@ -86,6 +86,14 @@ class PlayerCharacter(Character):
         text = super().identify()
         return text + f' Experience: {self.experience} Level: {self.level()}'
 
+    def status_bar_text(self, width: int) -> str:
+        health_and_mana_text = f'Health: {self.health}/{self.maximum_health} - Mana: {self.mana}/{self.maximum_mana}'
+        level_text = f'Level: {self.level()} ({self.experience} Experience)'
+        if width < len(health_and_mana_text) + len(level_text):
+            raise Exception('Screen width does not support status bar')
+        padding = ' ' * (width - len(health_and_mana_text) - len(level_text))
+        return health_and_mana_text + padding + level_text
+
 
 class NonPlayerCharacter(Character):
     def level(self) -> int:

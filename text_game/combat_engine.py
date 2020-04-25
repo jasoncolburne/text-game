@@ -3,7 +3,7 @@ import re
 from typing import List
 import yaml
 
-from .characters import Character
+from .characters import Character, PlayerCharacter
 from .constants import DEFAULT_ATTACKS_PATH, DEFAULT_PHRASES_PATH
 from .text_engine import TextEngine
 
@@ -14,9 +14,9 @@ ALLOWED_SIDES = [4, 6, 8, 10, 12, 20]
 class CombatEngine:
     def __init__(
         self,
+        text_engine: TextEngine = None,
         attacks_path: str = DEFAULT_ATTACKS_PATH,
         phrases_path: str = DEFAULT_PHRASES_PATH,
-        text_engine: TextEngine = None
     ) -> None:
         self.text_engine = text_engine or TextEngine()
 
@@ -25,16 +25,22 @@ class CombatEngine:
         with open(phrases_path, 'r') as f:
             self.phrases = yaml.load(f, Loader=yaml.FullLoader)
 
+    def _update_status_bar(self, player: PlayerCharacter):
+        width = self.text_engine.get_status_width()
+        self.text_engine.set_status_bar(player.status_bar_text(width))
+
     def _random_phrase(self, label: str) -> str:
         index = randint(0, len(self.phrases[label]) - 1)
         return self.phrases[label][index]
 
-    def fight(self, player: Character, enemy: Character) -> bool:
+    def fight(self, player: PlayerCharacter, enemy: Character) -> bool:
+        self._update_status_bar(player)
         self.text_engine.print(self._random_phrase('encounter').format(enemy_name=enemy.name))
         old_level = player.level()
 
         while True:
             self.player_turn(player, enemy)
+            self._update_status_bar(player)
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
                 player.experience += enemy.experience
@@ -42,6 +48,7 @@ class CombatEngine:
                     self.text_engine.print('You have gained a level!')
                 return True
             self.enemy_turn(player, enemy)
+            self._update_status_bar(player)
             if player.health <= 0:
                 self.text_engine.print(self._random_phrase('defeat').format(enemy_name=enemy.name))
                 return False
@@ -49,8 +56,6 @@ class CombatEngine:
     def player_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('player_turn').format(enemy_name=enemy.name))
-        self.text_engine.print(player.identify())
-        self.text_engine.print()
 
         valid_attacks = self._get_valid_attacks(player)
         attack = self.text_engine.menu(valid_attacks, ">")
