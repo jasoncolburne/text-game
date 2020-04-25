@@ -27,12 +27,12 @@ class FakeTextEngine(TextEngine):
 
 
 def _setup_world():
-    return World('text_game/tests/fixtures/characters', 'text_game/tests/fixtures/non_player_characters.yml')
+    return World('text_game/tests/fixtures')
 
 
 def _setup_combat_engine(text_engine=None):
     text_engine = text_engine or FakeTextEngine()
-    return CombatEngine(text_engine, 'text_game/tests/fixtures/attacks.yml', 'text_game/tests/fixtures/phrases.yml')
+    return CombatEngine(text_engine, 'text_game/tests/fixtures')
 
 
 def test_init__loads_attacks():

@@ -15,8 +15,8 @@ from text_game.text_engine import TextEngine
 def main(stdscr):
     te = TextEngine()
 
-    world = World('example/data/characters', 'example/data/non_player_characters.yml')
-    ce = CombatEngine(te, 'example/data/attacks.yml', 'example/data/phrases.yml')
+    world = World('example/data')
+    ce = CombatEngine(te, 'example/data')
 
     te.print('Welcome to the Arena!')
     te.print()
