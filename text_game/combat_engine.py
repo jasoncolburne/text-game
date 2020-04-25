@@ -44,6 +44,7 @@ class CombatEngine:
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
                 player.experience += enemy.experience
+                self._update_status_bar(player)
                 if player.level() != old_level:
                     self.text_engine.print('You have gained a level!')
                 return True

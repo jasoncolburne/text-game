@@ -18,26 +18,34 @@ def main(stdscr):
     ce = CombatEngine(te, 'example/data/attacks.yml', 'example/data/phrases.yml')
 
     te.print('Welcome to the Arena!')
+    te.print()
     te.print('Load your character:')
     name = te.menu(world.character_names(), '>')
 
     world.enter(name)
 
     if name == 'New':
-        te.print('Ahhh, a new recruit. What is your name?')
+        te.print('Ahhh, a new recruit!')
         while True:
-            name = te.prompt('>')
+            name = te.prompt('What is your name?')
             if name not in world.character_names():
                 break
             te.print('Sorry, that name is taken!')
         world.character.name = name
 
-    player = world.character
+    te.print()
 
+    player = world.character
     # enemy = world.spawn('Troll')
     # ce.fight(player, enemy)
     enemy = world.spawn('Goblin')
     ce.fight(player, enemy)
     world.leave()
+
+    te.print()
+    te.print('You leave the arena, tired from a day of fighting.')
+    te.print('[Press any key to exit]')
+
+    te.anykey()
 
 wrapper(main)
