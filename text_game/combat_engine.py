@@ -35,7 +35,7 @@ class CombatEngine:
         old_level = player.level()
 
         while True:
-            self.player_turn(player, enemy)
+            self._player_turn(player, enemy)
             self.text_engine.set_player_status(player)
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
@@ -44,13 +44,13 @@ class CombatEngine:
                 if player.level() != old_level:
                     self.text_engine.print('You have gained a level!')
                 return True
-            self.enemy_turn(player, enemy)
+            self._enemy_turn(player, enemy)
             self.text_engine.set_player_status(player)
             if player.health <= 0:
                 self.text_engine.print(self._random_phrase('defeat').format(enemy_name=enemy.name))
                 return False
 
-    def player_turn(self, player: Character, enemy: Character) -> None:
+    def _player_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('player_turn').format(enemy_name=enemy.name))
 
@@ -59,7 +59,7 @@ class CombatEngine:
 
         self._execute_combat(attack, player, enemy)
 
-    def enemy_turn(self, player: Character, enemy: Character) -> None:
+    def _enemy_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('enemy_turn').format(enemy_name=enemy.name))
 
