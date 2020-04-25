@@ -3,3 +3,8 @@
   defense: 2+2d4
   maximum_health: 15
   maximum_mana: 8
+3:
+  new_attacks: [Impale]
+  defense: 2+2d6
+  maximum_health: 23
+  maximum_mana: 12
