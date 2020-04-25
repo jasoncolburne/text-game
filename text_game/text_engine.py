@@ -54,8 +54,6 @@ class TextEngine:
         count = 0
         while True:
             key = self.prompt_bar.getkey()
-            # self.main_window.addstr(repr(key) + '\n')
-            # self.main_window.refresh()
             if key == '\x7f':
                 if count > 0:
                     answer = answer[0:-1]
@@ -73,6 +71,8 @@ class TextEngine:
 
         self.prompt_bar.clear()
         self.prompt_bar.refresh()
+        self.print(question + ' ' + answer)
+
         return answer
 
     def print(self, text: str = None) -> None:
