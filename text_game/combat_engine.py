@@ -41,7 +41,10 @@ class CombatEngine:
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
                 player.experience += enemy.experience
+                gold = self._sum_dice(enemy.gold)
+                player.gold += gold
                 self.text_engine.set_player_status(player)
+                self.text_engine.print(f'You have received {gold} gold!')
                 if player.level() != old_level:
                     player.apply_new_level(self.character_levels[player.level()])
                     self.text_engine.set_player_status(player)

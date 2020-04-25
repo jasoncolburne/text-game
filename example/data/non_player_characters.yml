@@ -4,6 +4,7 @@ Goblin:
   attacks: [Slash]
   defense: 0+1d4
   experience: 2
+  gold: 0+1d4
 
 Troll:
   maximum_health: 20
@@ -11,3 +12,4 @@ Troll:
   attacks: [Slash, Stab, Impale]
   defense: 2+1d6
   experience: 15
+  gold: 0+1d6

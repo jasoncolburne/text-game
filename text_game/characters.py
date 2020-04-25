@@ -39,6 +39,7 @@ class Character:
         self.mana = data.get('mana', data['maximum_mana'])
         self.maximum_mana = data['maximum_mana']
         self.experience = data['experience']
+        self.gold = data['gold']
 
     def damage(self, health: int) -> None:
         self.health = max(0, self.health - health)
@@ -83,7 +84,7 @@ class PlayerCharacter(Character):
 
     def status_bar_text(self, width: int) -> str:
         health_and_mana_text = f'Health: {self.health}/{self.maximum_health} - Mana: {self.mana}/{self.maximum_mana}'
-        level_text = f'Level: {self.level()} ({self.experience} Experience)'
+        level_text = f'Gold: {self.gold} Level: {self.level()} ({self.experience} Experience)'
 
         padding = ' '
         if width > len(health_and_mana_text) + len(level_text):

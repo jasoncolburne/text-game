@@ -4,6 +4,7 @@ Gimp:
   attacks: [Empty]
   defense: 0+0d4
   experience: 1
+  gold: 0+1d4
 
 Troll:
   maximum_health: 40
@@ -11,3 +12,4 @@ Troll:
   attacks: [Attack, Mana]
   defense: 2+0d4
   experience: 10
+  gold: 0+1d6
