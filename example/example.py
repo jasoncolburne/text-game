@@ -50,7 +50,12 @@ def main(stdscr):
             enemy_name = te.menu(list(world.npc_data.keys()), '>')
             enemy = world.spawn(enemy_name)
             te.print()
-            ce.fight(player, enemy)
+            won = ce.fight(player, enemy)
+            if not won:
+                # player has died.
+                te.print('[Press any key to continue]')
+                te.anykey()
+                break
         
         if action == 'Sleep':
             te.print('You feel much better after sleeping.')
