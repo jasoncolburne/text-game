@@ -52,6 +52,8 @@ class TextEngine:
 
         answer = ''
         count = 0
+
+        curses.curs_set(True)
         while True:
             key = self.prompt_bar.getkey()
             if key == '\x7f':
@@ -68,6 +70,7 @@ class TextEngine:
                 self.prompt_bar.refresh()
                 count += 1
                 answer += key
+        curses.curs_set(False)
 
         self.prompt_bar.clear()
         self.prompt_bar.refresh()
