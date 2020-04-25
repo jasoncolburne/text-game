@@ -55,8 +55,8 @@ def main(stdscr):
         if action == 'Sleep':
             te.print('You feel much better after sleeping.')
 
-            player.health = player.maximum_health
-            player.mana = player.maximum_mana
+            player.health = max(int(player.maximum_health * 0.75), player.health)
+            player.mana = max(int(player.maximum_mana * 0.75), player.mana)
             te.set_player_status(player)
 
         if action == 'Leave':
