@@ -11,6 +11,7 @@ from text_game.combat_engine import CombatEngine
 from text_game.world import World
 from text_game.text_engine import TextEngine
 
+
 def main(stdscr):
     te = TextEngine()
 
@@ -33,19 +34,39 @@ def main(stdscr):
             te.print('Sorry, that name is taken!')
         world.character.name = name
 
-    te.print()
-
     player = world.character
-    # enemy = world.spawn('Troll')
-    # ce.fight(player, enemy)
-    enemy = world.spawn('Goblin')
-    ce.fight(player, enemy)
-    world.leave()
+    te.set_player_status(player)
 
-    te.print()
-    te.print('You leave the arena, tired from a day of fighting.')
-    te.print('[Press any key to exit]')
+    while True:
+        te.print()
+        te.print('What would you like to do?')
+        
+        action = te.menu(['Fight', 'Sleep', 'Leave'], '>')
 
-    te.anykey()
+        te.print()
+        
+        if action == 'Fight':
+            te.print('What would you like to fight?')
+            enemy_name = te.menu(list(world.npc_data.keys()), '>')
+            enemy = world.spawn(enemy_name)
+            te.print()
+            ce.fight(player, enemy)
+        
+        if action == 'Sleep':
+            te.print('You feel much better after sleeping.')
+
+            player.health = max(int(player.maximum_health * 0.75), player.health)
+            player.mana = max(int(player.maximum_mana * 0.75), player.mana)
+            te.set_player_status(player)
+
+        if action == 'Leave':
+            world.leave()
+
+            te.print('You leave the arena, tired from a day of fighting.')
+            te.print('[Press any key to exit]')
+
+            te.anykey()
+            break
+
 
 wrapper(main)

@@ -3,6 +3,7 @@ from time import sleep
 from typing import Any, Dict, List, Union
 import curses
 
+from .characters import PlayerCharacter
 from .constants import DEFAULT_PRINTING_DELAY_MAXIMUM, DEFAULT_PRINTING_DELAY_MINIMUM
 
 
@@ -33,7 +34,10 @@ class TextEngine:
     def get_status_width(self) -> int:
         return curses.COLS
 
-    def set_status_bar(self, text: str) -> None:
+    def set_player_status(self, player: PlayerCharacter):
+        self._set_status_bar(player.status_bar_text(curses.COLS))
+
+    def _set_status_bar(self, text: str) -> None:
         self.status_bar.clear()
         self.status_bar.addstr(text, curses.A_REVERSE)
         self.status_bar.refresh()

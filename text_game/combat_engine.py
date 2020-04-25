@@ -25,36 +25,32 @@ class CombatEngine:
         with open(phrases_path, 'r') as f:
             self.phrases = yaml.load(f, Loader=yaml.FullLoader)
 
-    def _update_status_bar(self, player: PlayerCharacter):
-        width = self.text_engine.get_status_width()
-        self.text_engine.set_status_bar(player.status_bar_text(width))
-
     def _random_phrase(self, label: str) -> str:
         index = randint(0, len(self.phrases[label]) - 1)
         return self.phrases[label][index]
 
     def fight(self, player: PlayerCharacter, enemy: Character) -> bool:
-        self._update_status_bar(player)
+        self.text_engine.set_player_status(player)
         self.text_engine.print(self._random_phrase('encounter').format(enemy_name=enemy.name))
         old_level = player.level()
 
         while True:
-            self.player_turn(player, enemy)
-            self._update_status_bar(player)
+            self._player_turn(player, enemy)
+            self.text_engine.set_player_status(player)
             if enemy.health <= 0:
                 self.text_engine.print(self._random_phrase('victory').format(enemy_name=enemy.name))
                 player.experience += enemy.experience
-                self._update_status_bar(player)
+                self.text_engine.set_player_status(player)
                 if player.level() != old_level:
                     self.text_engine.print('You have gained a level!')
                 return True
-            self.enemy_turn(player, enemy)
-            self._update_status_bar(player)
+            self._enemy_turn(player, enemy)
+            self.text_engine.set_player_status(player)
             if player.health <= 0:
                 self.text_engine.print(self._random_phrase('defeat').format(enemy_name=enemy.name))
                 return False
 
-    def player_turn(self, player: Character, enemy: Character) -> None:
+    def _player_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('player_turn').format(enemy_name=enemy.name))
 
@@ -63,7 +59,7 @@ class CombatEngine:
 
         self._execute_combat(attack, player, enemy)
 
-    def enemy_turn(self, player: Character, enemy: Character) -> None:
+    def _enemy_turn(self, player: Character, enemy: Character) -> None:
         self.text_engine.print()
         self.text_engine.print(self._random_phrase('enemy_turn').format(enemy_name=enemy.name))
 
