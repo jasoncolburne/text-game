@@ -5,3 +5,4 @@ mana: 15
 attacks: [Slash, Stab]
 defense: 2+2d4
 experience: 0
+gold: 0
