@@ -7,20 +7,23 @@ class FakeTextEngine(TextEngine):
     def __init__(self):
         pass
 
-    def set_expected_data(self, data):
-        self.expected_data = data
-        self.text_index = 0
+    def set_expected_data(self, expected_data, response_data):
+        self.expected_data = expected_data
+        self.response_data = response_data
+        self.print_index = 0
 
     def menu(self, choices, question, display_values=False):
         assert choices == self.expected_data['choices']
         assert question == self.expected_data['question']
+        return self.response_data['menu']
 
     def prompt(self, question):
         assert question == self.expected_data['question']
+        return self.response_data['prompt']
 
     def print(self, text):
-        assert text == self.expected_data['text'][self.text_index]
-        self.text_index += 1
+        assert text == self.expected_data['text'][self.print_index]
+        self.print_index += 1
 
 
 def _setup_world():
