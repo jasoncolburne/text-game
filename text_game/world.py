@@ -27,5 +27,9 @@ class World:
         with open(self.characters_path + '/' + name + '.yml', 'r') as f:
             self.character = PlayerCharacter(name, yaml.load(f, Loader=yaml.FullLoader))
 
+    def leave(self) -> None:
+        with open(self.characters_path + '/' + self.character.name + '.yml', 'w') as f:
+            f.write(self.character.as_yaml())
+
     def spawn(self, npc_name: str) -> NonPlayerCharacter:
         return NonPlayerCharacter(npc_name, self.npc_data[npc_name])

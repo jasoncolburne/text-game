@@ -130,3 +130,6 @@ dmypy.json
 
 # vscode
 .vscode/
+
+# extra example characters
+example/data/characters/Jason.yml
