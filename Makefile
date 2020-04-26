@@ -7,4 +7,7 @@ lint:
 typecheck:
 	mypy .
 
-all: test lint typecheck
+check-all: test lint typecheck
+
+run-example:
+	@python example/example.py
