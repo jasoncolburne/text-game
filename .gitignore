@@ -133,3 +133,6 @@ dmypy.json
 
 # extra example characters
 example/data/characters/Jason.yml
+example/data/characters/Jake.yml
+
+.DS_Store

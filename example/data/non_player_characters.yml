@@ -13,3 +13,19 @@ Troll:
   defense: 2+1d6
   experience: 15
   gold: 0+1d6
+
+Ogre:
+  maximum_health: 28
+  maximum_mana: 10
+  attacks: [Stab, Impale, Rockslide]
+  defense: 3+0d8
+  experience: 20
+  gold: 0+1d8
+
+Minotaur:
+  maximum_health: 35
+  maximum_mana: 10
+  attacks: [Stab, Charge]
+  defense: 2+1d10
+  experience: 30
+  gold: 4+1d10
