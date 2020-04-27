@@ -24,5 +24,5 @@ def test_enter():
 
 def test_spawn():
     world = _setup_world()
-    goblin = world.spawn('Gimp')
-    assert goblin is not None
+    gimp = world.spawn('Gimp')
+    assert gimp is not None
