@@ -14,3 +14,43 @@ Burn:
   mana_required: 4
   attack_roll: 6+2d4
   damage_roll: 2+2d4
+RageSpike:
+  mana_required: 0
+  attack_roll: 1+1d6
+  damage_roll: 4+1d8
+Whirlwind:
+  mana_required: 2
+  attack_roll: 2+d8
+  damage_roll: 1+2d8
+Reaver:
+  mana_required: 6
+  attack_roll: 6+4d4
+  damage_roll: 8+4d4
+MeteorStrike:
+  mana_required: 0
+  attack_roll: 2+d8
+  damage_roll: 8+2d8
+DeathMark:
+  mana_required: 10
+  attack_roll: 5+2d12
+  damage_roll: 10+2d20
+Slaughter:
+  mana_required: 0
+  attack_roll: 1+2d20
+  damage_roll: 15+1d20
+Earthquake:
+  mana_required: 10
+  attack_roll: 5+2d20
+  damage_roll: 15+2d20
+FuryAttack:
+  mana_required: 0
+  attack_roll: 0+1d6
+  damage_roll: 2+4d4
+Rockslide:
+  mana_required: 5
+  attack_roll: 0+1d8
+  damage_roll: 2+1d10
+Charge:
+  mana_required: 3
+  attack_roll: 0+1d10
+  damage_roll: 2+2d8

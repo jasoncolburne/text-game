@@ -8,3 +8,38 @@
   defense: 2+2d6
   maximum_health: 23
   maximum_mana: 12
+4:
+  new_attacks: [RageSpike]
+  defense: 4+2d6
+  maximum_health: 30
+  maximum_mana: 15
+5:
+  new_attacks: [Whirlwind]
+  defense: 4+2d8
+  maximum_health: 37
+  maximum_mana: 20
+6:
+  new_attacks: [Reaver]
+  defense: 6+2d8
+  maximum_health: 44
+  maximum_mana: 23
+7:
+  new_attacks: [MeteorStrike]
+  defense: 6+2d10
+  maximum_health: 50
+  maximum_mana: 23
+8:
+  new_attacks: [DeathMark]
+  defense: 6+2d10
+  maximum_health: 56
+  maximum_mana: 26
+9:
+  new_attacks: [Slaughter]
+  defense: 8+2d10
+  maximum_health: 62
+  maximum_mana: 26
+10:
+  new_attacks: [Earthquake]
+  defense: 8+2d12
+  maximum_health: 70
+  maximum_mana: 30
