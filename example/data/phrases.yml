@@ -15,4 +15,7 @@ victory:
   - You have defeated the {enemy_name}!
 defeat:
   - You have succumbed to the {enemy_name}.
-
+level:
+  - You have gained a level!
+gold:
+  - You have received {gold} gold!

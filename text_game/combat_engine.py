@@ -44,11 +44,11 @@ class CombatEngine:
                 gold = self._sum_dice(enemy.gold)
                 player.gold += gold
                 self.text_engine.set_player_status(player)
-                self.text_engine.print(f'You have received {gold} gold!')
+                self.text_engine.print(self._random_phrase('gold').format(gold=gold))
                 if player.level() != old_level:
                     player.apply_new_level(self.character_levels[player.level()])
                     self.text_engine.set_player_status(player)
-                    self.text_engine.print('You have gained a level!')
+                    self.text_engine.print(self._random_phrase('level'))
                 return True
             self._enemy_turn(player, enemy)
             self.text_engine.set_player_status(player)
