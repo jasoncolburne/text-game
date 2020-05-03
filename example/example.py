@@ -11,9 +11,11 @@ from text_game.combat_engine import CombatEngine  # noqa: E402
 from text_game.world import World  # noqa: E402
 from text_game.text_engine import TextEngine  # noqa: E402
 
+DEBUG = bool(int(os.environ.get('DEBUG', '0')))
+
 
 def main(stdscr):
-    te = TextEngine()
+    te = TextEngine(0, 0) if DEBUG else TextEngine()
 
     world = World('example/data')
     ce = CombatEngine(te, 'example/data')
