@@ -82,13 +82,37 @@ class TextEngine:
         self.main_window.addch('\n')
 
         if text:
-            for character in text:
+            formatted_text = self._group_text_into_lines(text)
+
+            for character in formatted_text:
                 self.main_window.addch(character)
                 self.main_window.refresh()
                 delay = random() * (self.printing_delay_maximum - self.printing_delay_minimum) + self.printing_delay_minimum
                 sleep(delay)
 
         self.main_window.refresh()
+
+    def _group_text_into_lines(self, text):
+        # pylint: disable=no-member
+        if len(text) < curses.COLS:
+            return text
+        
+        words = text.split(' ')
+
+        lines = []
+        offset = 0
+        length = 1
+
+        while offset + length <= len(words):
+            line = ''
+            while offset + length <= len(words) and len(' '.join(words[offset:offset + length])) < curses.COLS:    
+                line = ' '.join(words[offset:offset + length])
+                length += 1
+            lines.append(line)
+            offset = offset + length - 1
+            length = 1
+
+        return '\n'.join(lines)
 
     def menu(self, choices: Union[List, Dict], question: str, display_values: bool = False) -> Any:
         index = 0
