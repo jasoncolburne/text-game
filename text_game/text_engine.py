@@ -96,7 +96,7 @@ class TextEngine:
         # pylint: disable=no-member
         if len(text) < curses.COLS:
             return text
-        
+
         words = text.split(' ')
 
         lines = []
@@ -105,7 +105,7 @@ class TextEngine:
 
         while offset + length <= len(words):
             line = ''
-            while offset + length <= len(words) and len(' '.join(words[offset:offset + length])) < curses.COLS:    
+            while offset + length <= len(words) and len(' '.join(words[offset:offset + length])) < curses.COLS:
                 line = ' '.join(words[offset:offset + length])
                 length += 1
             lines.append(line)
