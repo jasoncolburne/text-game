@@ -58,7 +58,7 @@ def main(stdscr):
                 break
 
         if action == 'Sleep':
-            te.print('You feel much better after sleeping. This is a really long line to test whether wrapping without breaking words will work.')
+            te.print('You feel much better after sleeping.')
 
             player.health = max(int(player.maximum_health * 0.75), player.health)
             player.mana = max(int(player.maximum_mana * 0.75), player.mana)
