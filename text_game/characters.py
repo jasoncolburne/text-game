@@ -56,13 +56,6 @@ class Character:
             del data['name']
         return yaml.dump(data)
 
-    def identify(self) -> str:
-        text = f'{self.name}: Health {self.health}/{self.maximum_health}'
-        if self.maximum_mana:
-            text += f' Mana {self.mana}/{self.maximum_mana}'
-
-        return text
-
     @abstractmethod
     def level(self) -> int:
         pass
@@ -77,10 +70,6 @@ class Character:
 class PlayerCharacter(Character):
     def level(self) -> int:
         return super()._level(PLAYER_LEVEL_MAPPING)
-
-    def identify(self) -> str:
-        text = super().identify()
-        return text + f' Experience: {self.experience} Level: {self.level()}'
 
     def status_bar_text(self, width: int) -> str:
         health_and_mana_text = f'Health: {self.health}/{self.maximum_health} - Mana: {self.mana}/{self.maximum_mana}'
@@ -104,7 +93,3 @@ class PlayerCharacter(Character):
 class NonPlayerCharacter(Character):
     def level(self) -> int:
         return super()._level(NON_PLAYER_LEVEL_MAPPING)
-
-    def identify(self) -> str:
-        text = super().identify()
-        return text + f' Level: {self.level()}'
