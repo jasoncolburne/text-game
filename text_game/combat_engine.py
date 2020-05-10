@@ -70,8 +70,7 @@ class CombatEngine:
         self.text_engine.print(self._random_phrase('enemy_turn').format(enemy_name=enemy.name))
 
         valid_attacks = self._get_valid_attacks(enemy)
-        number_of_attacks = len(valid_attacks)
-        attack_index = randint(0, number_of_attacks - 1)
+        attack_index = randint(0, len(valid_attacks) - 1)
         attack = valid_attacks[attack_index]
 
         self._execute_combat(attack, enemy, player)
